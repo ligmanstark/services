@@ -11,4 +11,9 @@ export const sidebarNavigation = [
     href: "/pastebin",
     icon: icons.FileText,
   },
+  {
+    name: "Services",
+    href: "/services",
+    icon: icons.Bolt,
+  },
 ];

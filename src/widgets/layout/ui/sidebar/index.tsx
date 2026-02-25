@@ -7,7 +7,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/shared/ui/shadcn/sidebar";
+} from "@shared/ui/shadcn/sidebar";
 import { sidebarNavigation } from "./data";
 import { NavLink } from "react-router";
 export function AppSidebar() {

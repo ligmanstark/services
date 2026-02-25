@@ -16,6 +16,13 @@ const routes: RouteObject[] = [
         },
       },
       {
+        path: "services",
+        lazy: async () => {
+          const { default: ServicesPage } = await import("@pages/services/page");
+          return { element: <ServicesPage /> };
+        },
+      },
+      {
         index: true,
         lazy: async () => {
           const { default: HomePage } = await import("@pages/home/page");
