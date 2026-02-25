@@ -9,17 +9,24 @@ const routes: RouteObject[] = [
     },
     children: [
       {
-        path: "home",
-        lazy: async () => {
-          const { default: HomePage } = await import("@pages/home/page");
-          return { element: <HomePage /> };
-        },
-      },
-      {
         path: "services",
         lazy: async () => {
           const { default: ServicesPage } = await import("@pages/services/page");
           return { element: <ServicesPage /> };
+        },
+      },
+      {
+        path: "login",
+        lazy: async () => {
+          const { default: LoginPage } = await import("@pages/login/page");
+          return { element: <LoginPage /> };
+        },
+      },
+      {
+        path: "registration",
+        lazy: async () => {
+          const { default: RegistrationPage } = await import("@pages/registration/page");
+          return { element: <RegistrationPage /> };
         },
       },
       {

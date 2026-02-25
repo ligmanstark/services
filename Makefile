@@ -1,5 +1,9 @@
 include .env
 export
 
+
+front-run:
+	cd ./frontend && npm run dev
+
 pull-ui:
-	npm run add-component $(SHAD_UI_COMP)
+	cd ./frontend && npm run add-component $(FRONT_SHAD_UI_COMP)
