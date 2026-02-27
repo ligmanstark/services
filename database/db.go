@@ -7,12 +7,12 @@ import (
 	"strconv"
 
 	"github.com/subosito/gotenv"
-	"idea-garden.tech/services/pkg"
+	er "idea-garden.tech/services/pkg/error"
 )
 
 func InitDB()(*sql.DB, error){
 	err:=gotenv.Load()
-	pkg.HandleError("Ошибка в чтении .env",err)
+	er.HandleError("Ошибка в чтении .env",err)
 
 	var (
 		host     = os.Getenv("DB_HOST")
@@ -23,7 +23,7 @@ func InitDB()(*sql.DB, error){
 		sslmode  = os.Getenv("DB_SSLMODE")
 	)
 	portInt, err := strconv.Atoi(port)
-	pkg.HandleError("Ошибка в конвертации порта из строки в число", err)
+	er.HandleError("Ошибка в конвертации порта из строки в число", err)
 
 	return sql.Open("postgres", fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
 		host, portInt, user, password, dbname, sslmode))

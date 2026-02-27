@@ -6,6 +6,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"idea-garden.tech/services/database"
+	auth "idea-garden.tech/services/handlers/auth"
 )
 
 
@@ -15,10 +16,10 @@ func main() {
 	response.Use(gin.Logger())
 	response.Use(cors.Default())
 
-	auth := response.Group("/api/auth")
+	authRoutes := response.Group("/api/auth")
 	{
-		auth.POST("/register", handlers.Register)
-		auth.POST("/login", handlers.Login)
+		authRoutes.POST("/register", auth.Register)
+		authRoutes.POST("/login", auth.Login)
 	}
 
 	response.GET("/ping", func(ctx *gin.Context) {

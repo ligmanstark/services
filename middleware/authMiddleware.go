@@ -1,27 +1,30 @@
 package middleware
 
 import (
-	"os"
-	"strings"
-
 	"github.com/gin-gonic/gin"
-	"github.com/subosito/gotenv"
-	"idea-garden.tech/services/pkg"
+	t "idea-garden.tech/services/pkg/token"
 )
 
 
 func AuthMiddleware() gin.HandlerFunc {
-	err := gotenv.Load()
-	pkg.HandleError("Ошибка в чтении .env", err)
-	var jwtSecret = []byte(os.Getenv("JWT_SECRET"))
-	return func (ctx *gin.Context) {
-		authHeader := ctx.GetHeader("Authorization")
-		if authHeader == "" {
+	return func(ctx *gin.Context) {
+		tokenStr := ctx.GetHeader("Authorization")
+		if tokenStr == "" {
 			ctx.AbortWithStatusJSON(401, gin.H{"error": "Отсутствует токен авторизации"})
 			return
 		}
 
-		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+		claims, err := t.ValidateToken(tokenStr)
+		if err != nil {
+			ctx.AbortWithStatusJSON(401, gin.H{"error": "Недействительный токен авторизации"})
+			return
+		}
+
+		ctx.Set("userID", claims.UserID)
+		ctx.Set("userName", claims.Name)
+		ctx.Set("userEmail", claims.Email)
+
+		ctx.Next()
 	}
 }
 
